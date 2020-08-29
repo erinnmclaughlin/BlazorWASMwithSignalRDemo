@@ -1,0 +1,34 @@
+﻿@using BlazorWithSignalRDragAndDrop.Shared
+
+@if (GridModel != null)
+{
+    for (int i = 0; i < GridModel.Dimension; i++)
+    {
+        var local_i = i;
+
+        <Row>
+            @for (int j = 0; j < GridModel.Dimension; j++)
+            {
+                var local_j = j;
+
+                <Cell OnDrop="(async () => await UpdateGridModel(local_i, local_j))"
+                      HasShape="(GridModel.CurrentRow == local_i && GridModel.CurrentCol == local_j)"></Cell>
+            }
+        </Row>
+    }
+}
+
+@code {
+
+    [Parameter] public GridModel GridModel { get; set; }
+    [Parameter] public EventCallback OnUpdate { get; set; }
+
+    public async Task UpdateGridModel(int row, int col)
+    {
+        GridModel.CurrentRow = row;
+        GridModel.CurrentCol = col;
+
+        await OnUpdate.InvokeAsync(null);
+    }
+
+}

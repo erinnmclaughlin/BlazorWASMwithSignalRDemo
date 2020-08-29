@@ -1,0 +1,36 @@
+﻿<div class="cell @dropClass"
+     ondragover="event.preventDefault();"
+     @ondragenter="HandleDragEnter"
+     @ondragleave="HandleDragLeave"
+     @ondrop="HandleDrop">
+
+    @if (HasShape)
+    {
+        <Shape />
+    }
+</div>
+
+@code {
+
+    [CascadingParameter] public Row Row { get; set; }
+    [Parameter] public bool HasShape { get; set; }
+    [Parameter] public EventCallback OnDrop { get; set; }
+
+    string dropClass = "";
+
+    private async Task HandleDrop()
+    {
+        dropClass = "";
+        await OnDrop.InvokeAsync(this);
+    }
+
+    private void HandleDragEnter()
+    {
+        dropClass = "can-drop";
+    }
+
+    private void HandleDragLeave()
+    {
+        dropClass = "";
+    }
+}

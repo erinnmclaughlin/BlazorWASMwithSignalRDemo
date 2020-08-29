@@ -1,7 +1,42 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@using BlazorWithSignalRDragAndDrop.Client.Components
+@using BlazorWithSignalRDragAndDrop.Shared
+@inject NavigationManager NavigationManager
+@implements IDisposable
 
-<h1>Hello, world!</h1>
+<Grid GridModel="_gridModel" OnUpdate="Send" />
 
-Welcome to your new app.
+@code {
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private HubConnection _hubConnection;
+    private GridModel _gridModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _gridModel = new GridModel();
+
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/shapes"))
+            .Build();
+
+        _hubConnection.On<GridModel>("ReceiveShapeUpdate", gridModel =>
+        {
+            _gridModel.CurrentCol = gridModel.CurrentCol;
+            _gridModel.CurrentRow = gridModel.CurrentRow;
+            StateHasChanged();
+        });
+
+        await _hubConnection.StartAsync();
+    }
+
+    private Task Send() => _hubConnection.SendAsync("SendShapeUpdate", _gridModel);
+
+    public bool IsConnected =>
+        _hubConnection.State == HubConnectionState.Connected;
+
+    public void Dispose()
+    {
+        _ = _hubConnection.DisposeAsync();
+    }
+}
