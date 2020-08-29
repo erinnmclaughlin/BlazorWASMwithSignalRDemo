@@ -8,7 +8,6 @@ Simple implementation of Blazor drag & drop functionality paired with realtime S
 3. Both tabs will update as the circle is moved to a new cell in the grid.
 
 <img src="images/signalRDemo.gif" />
-<br /><br/>
 
 ## Additional Resources
 * [SignalR with Blazor Webassembly](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly?view=aspnetcore-3.1&tabs=visual-studio)
