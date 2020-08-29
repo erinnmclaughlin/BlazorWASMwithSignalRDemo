@@ -1,4 +1,4 @@
-# Blazor WebAssembly Drag & Drop with Realtime SignalR Connection
+# Blazor WebAssembly App with Realtime SignalR Connection Demo (with Drag & Drop)
 
 Simple implementation of Blazor drag & drop functionality paired with realtime SignalR updates.
 
@@ -11,5 +11,5 @@ Simple implementation of Blazor drag & drop functionality paired with realtime S
 <br /><br/>
 
 ## Additional Resources
-* [Blazor Drag & Drop](https://chrissainty.com/investigating-drag-and-drop-with-blazor/)
 * [SignalR with Blazor Webassembly](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly?view=aspnetcore-3.1&tabs=visual-studio)
+* [Blazor Drag & Drop](https://chrissainty.com/investigating-drag-and-drop-with-blazor/)
